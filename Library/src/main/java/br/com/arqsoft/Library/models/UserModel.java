@@ -8,10 +8,9 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
-@Table(name = "User")
+@Table(name = "user")
 public class UserModel implements Serializable, UserDetails {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -19,25 +18,25 @@ public class UserModel implements Serializable, UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
-    private UUID id;
+    private Integer id;
     @Column(nullable = false)
     private String username;
     @Column(nullable = false)
     private String password;
     @ManyToMany
-    @JoinTable(name = "User_Role",
-            joinColumns = @JoinColumn(name = "userId"),
-            inverseJoinColumns = @JoinColumn(name = "RoleId"))
+    @JoinTable(name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<RoleModel> roles;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<RentModel> rentList;
 
 
-    public UUID getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -90,5 +89,13 @@ public class UserModel implements Serializable, UserDetails {
 
     public void setRoles(List<RoleModel> roles) {
         this.roles = roles;
+    }
+
+    public List<RentModel> getRentList() {
+        return rentList;
+    }
+
+    public void setRentList(List<RentModel> rentList) {
+        this.rentList = rentList;
     }
 }

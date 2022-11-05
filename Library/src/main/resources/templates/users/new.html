@@ -1,0 +1,28 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Novo Usuário</title>
+
+</head>
+
+<body>
+<div>
+    <form th:object="${userDTO}" action="/users" method="POST">
+        <div>
+            <label for="name">Nome:</label>
+            <input type="text" id="name" th:field="*{name}">
+        </div>
+        <div>
+            <label for="username">Nome de Usuário:</label>
+            <input type="text" id="username" th:field="*{username}">
+        </div>
+        <div>
+            <label for="password">Senha:</label>
+            <input type="password" id="password" th:field="*{password}">
+        </div>
+
+        <input type="submit" value="Submit">
+    </form>
+</div>
+</body>
+</html>

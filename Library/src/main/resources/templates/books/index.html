@@ -1,0 +1,40 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>       
+    <title>Livros</title>
+
+</head>
+
+<body>
+    <div>
+            <table>
+                <thead>
+                <tr>
+                    <th >Nome</th>
+                    <th>Localização</th>
+                    <th>Ano de Lançamento</th>
+                    <th>Autor</th>
+                    <th>Gênero</th>
+                    <th>Editora</th>
+                    <th>Alugar</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="bookModel : ${books}">
+                    <td th:text="${bookModel.name}">Nome do Livro</td>
+                    <td th:text = "${bookModel.location}">Localização</td>
+                    <td th:text = "${bookModel.releaseYear}">Ano de Lançamento</td>
+                    <td th:text = "${bookModel.author}">Autor</td>
+                    <td th:text = "${bookModel.genre}">Gênero</td>
+                    <td th:text = "${bookModel.publishingHouse}">Editora</td>
+                    <td th:if="${bookModel.available}"><a th:href="@{/rent/{bookId}(bookId = ${bookModel.id})}">Alugar</a></td>
+                    <td th:if ="${!bookModel.available}"> Não Disponível</td>
+                </tr>
+                </tbody>
+            </table>
+    </div>
+</body>
+</html>

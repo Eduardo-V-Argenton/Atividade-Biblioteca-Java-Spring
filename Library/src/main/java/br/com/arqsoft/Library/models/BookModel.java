@@ -1,22 +1,16 @@
 package br.com.arqsoft.Library.models;
 
-
 import javax.persistence.*;
-import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
-@Table(name = "Book")
+@Table(name = "book")
 public class BookModel implements Serializable {
-    @Serial
-    private static final long serialVersionUID = 1L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
-    private UUID id;
+    private Integer id;
     @Column(nullable = false)
     private String name;
     @Column
@@ -29,14 +23,20 @@ public class BookModel implements Serializable {
     private String genre;
     @Column(nullable = false)
     private String publishingHouse;
+    @Column(nullable = false)
+    private Boolean available;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "book")
     private List<RentModel> rentList;
 
-    public UUID getId() {
+    public BookModel() {
+        this.available = true;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -86,6 +86,14 @@ public class BookModel implements Serializable {
 
     public void setPublishingHouse(String publishingHouse) {
         this.publishingHouse = publishingHouse;
+    }
+
+    public Boolean getAvailable() {
+        return available;
+    }
+
+    public void setAvailable(Boolean available) {
+        this.available = available;
     }
 
     public List<RentModel> getRentList() {

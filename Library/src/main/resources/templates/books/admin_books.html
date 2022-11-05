@@ -1,0 +1,41 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>       
+    <title>Hello</title>
+
+</head>
+
+<body>
+<div>
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th >Nome</th>
+                    <th>Localização</th>
+                    <th>Ano de Lançamento</th>
+                    <th>Autor</th>
+                    <th>Gênero</th>
+                    <th>Editora</th>
+                    <th>Editar</th>
+                    <th>Excluir</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="book : ${books}">
+                    <th th:text="${book.id}">ID</th>
+                    <td th:text="${book.name}">Nome do Livro</td>
+                    <td th:text = "${book.location}">Localização</td>
+                    <td th:text = "${book.releaseYear}">Ano de Lançamento</td>
+                    <td th:text = "${book.author}">Autor</td>
+                    <td th:text = "${book.genre}">Gênero</td>
+                    <td th:text = "${book.publishingHouse}">Editora</td>
+                    <td><a th:href="@{/books/{id}/edit(id = ${book.id})}">Editar</a></td>
+                    <td><a th:href="@{/books/{id}/delete(id = ${book.id})}">Excluir</a></td>
+                </tr>
+                </tbody>
+            </table>
+</div>
+        <a href="/books/new">Novo</a>
+</body>
+</html>

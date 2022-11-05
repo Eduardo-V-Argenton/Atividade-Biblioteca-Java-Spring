@@ -3,15 +3,14 @@ package br.com.arqsoft.Library.models;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.UUID;
 
 @Entity
-@Table(name = "Rent")
+@Table(name = "rent")
 public class RentModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
-    private UUID id;
+    private Integer id;
     @Column(nullable = false)
     private Date rentDate;
     @Column(nullable = false)
@@ -19,17 +18,17 @@ public class RentModel implements Serializable {
     @Column()
     private Date returnDate;
     @ManyToOne(optional = false)
-    @JoinColumn(name = "User", referencedColumnName = "id")
+    @JoinColumn(name = "user", referencedColumnName = "id")
     private UserModel user;
     @ManyToOne(optional = false)
-    @JoinColumn(name = "Book", referencedColumnName = "id")
+    @JoinColumn(name = "book", referencedColumnName = "id")
     private BookModel book;
 
-    public UUID getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

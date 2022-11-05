@@ -6,10 +6,9 @@ import org.springframework.security.core.GrantedAuthority;
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.UUID;
 
 @Entity
-@Table(name = "Role")
+@Table(name = "role")
 public class RoleModel implements Serializable, GrantedAuthority {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -17,16 +16,16 @@ public class RoleModel implements Serializable, GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
-    private UUID id;
+    private Integer id;
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private RoleName roleName;
 
-    public UUID getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
