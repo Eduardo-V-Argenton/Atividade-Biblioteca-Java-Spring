@@ -10,6 +10,8 @@ import javax.validation.Valid;
 import br.com.arqsoft.Library.dto.BookModelDto;
 import br.com.arqsoft.Library.models.BookModel;
 import br.com.arqsoft.Library.repositories.BookRepository;
+import br.com.arqsoft.Library.repositories.RentRepository;
+import br.com.arqsoft.Library.repositories.UserRepository;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -28,7 +30,7 @@ import java.util.Optional;
 public class BookController {
     private final BookRepository bookRepository;
 
-    public BookController(BookRepository bookRepository) {
+    public BookController(BookRepository bookRepository, UserRepository userRepository, RentRepository rentRepository) {
         this.bookRepository = bookRepository;
     }
 
@@ -67,12 +69,12 @@ public class BookController {
 
         if (optional.isPresent()) {
             BookModel book = optional.get();
+            bdto = new BookModelDto(book.getName(), book.getReleaseYear(), book.getLocation(), book.getAuthor(), book.getGenre(), book.getPublishingHouse());
             ModelAndView mv = new ModelAndView("/books/edit");
-            mv.addObject("bookId", book.getId());
+            mv.addObject("bookId", id);
             return mv;
         } else {
             return new ModelAndView("redirect:/errors");
-
         }
     }
 
@@ -80,7 +82,9 @@ public class BookController {
     @PostMapping("/{id}")
     public ModelAndView update(@PathVariable Integer id, @Valid BookModelDto bdto, BindingResult bdr) {
         if (bdr.hasErrors()) {
-            return new ModelAndView("/books/" + id + "/edit");
+            ModelAndView mv = new ModelAndView("/books/" + id + "/edit");
+            mv.addObject("bookId", id);
+            return mv;
         } else {
             Optional<BookModel> optional = this.bookRepository.findById(id);
 
@@ -105,5 +109,5 @@ public class BookController {
         }
         return new ModelAndView("redirect:/books");
     }
-}  
+}
 

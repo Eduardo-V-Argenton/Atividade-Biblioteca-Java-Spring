@@ -7,11 +7,7 @@
 
 <body>
 <div>
-    <form th:object="${userDTO}" action="/users" method="POST">
-        <div>
-            <label for="name">Nome:</label>
-            <input type="text" id="name" th:field="*{name}">
-        </div>
+    <form th:object="${userModelDto}" action="/users" method="POST">
         <div>
             <label for="username">Nome de Usuário:</label>
             <input type="text" id="username" th:field="*{username}">

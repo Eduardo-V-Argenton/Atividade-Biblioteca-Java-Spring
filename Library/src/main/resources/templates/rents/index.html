@@ -1,0 +1,39 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Alugueis</title>
+
+</head>
+
+<body>
+<div>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Livro</th>
+            <th sec:authorize="hasRole('ROLE_ADMIN')">Usuário</th>
+            <th>Data de Aluguel</th>
+            <th>Data Limite</th>
+            <th>Data Devolução</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="rentModel : ${rents}">
+            <td th:text="${rentModel.id}">ID</td>
+            <td th:text="${rentModel.book.name}">Livro</td>
+            <td sec:authorize-expr="hasRole('ROLE_ADMIN')" th:text="${rentModel.user.username}">User</td>
+            <td th:text = "${rentModel.rentDate}">Data Aluguel</td>
+            <td th:text = "${rentModel.returnDateLimit}">Data Retorno</td>
+            <td th:if="${rentModel.returnDate == null}" sec:authorize="hasRole('ROLE_USER')"><a th:href="@{/rents/{id}/return(id = ${rentModel.id})}">Devolver</a></td>
+            <td th:if="${rentModel.returnDate == null}" sec:authorize="hasRole('ROLE_ADMIN')">Não Devolvido</td>
+            <td th:if="${rentModel.returnDate != null}" th:text = "${rentModel.returnDate}">Data Retorno</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -25,11 +25,21 @@ public class BookModel implements Serializable {
     private String publishingHouse;
     @Column(nullable = false)
     private Boolean available;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "book")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "book")
     private List<RentModel> rentList;
 
     public BookModel() {
         this.available = true;
+    }
+
+    public BookModel(String name, Integer releaseYear, String location, String author, String genre, String publishingHouse, Boolean available) {
+        this.name = name;
+        this.releaseYear = releaseYear;
+        this.location = location;
+        this.author = author;
+        this.genre = genre;
+        this.publishingHouse = publishingHouse;
+        this.available = available;
     }
 
     public Integer getId() {
@@ -103,4 +113,5 @@ public class BookModel implements Serializable {
     public void setRentList(List<RentModel> rentList) {
         this.rentList = rentList;
     }
+
 }

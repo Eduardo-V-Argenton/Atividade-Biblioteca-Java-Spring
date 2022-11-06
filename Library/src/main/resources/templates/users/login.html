@@ -6,7 +6,7 @@
 
 <body>
 <div>
-    <form th:object="${loginDTO}" action="/book" method="POST">
+    <form th:action="@{/login}"  method="POST">
         <div>
             <label for="username">Usuário: </label>
             <input type="text" id="username" th:field="*{username}">

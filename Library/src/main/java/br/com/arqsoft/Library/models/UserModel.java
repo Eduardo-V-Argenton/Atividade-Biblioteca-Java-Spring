@@ -31,6 +31,26 @@ public class UserModel implements Serializable, UserDetails {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<RentModel> rentList;
 
+    public UserModel() {
+    }
+
+    public UserModel(Integer id, String username, String password, List<RoleModel> roles) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.roles = roles;
+    }
+
+    public UserModel(String username, String password, List<RoleModel> roles) {
+        this.username = username;
+        this.password = password;
+        this.roles = roles;
+    }
+
+    public UserModel(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 
     public Integer getId() {
         return id;
