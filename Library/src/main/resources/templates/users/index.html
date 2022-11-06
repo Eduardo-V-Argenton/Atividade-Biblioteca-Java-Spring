@@ -12,6 +12,7 @@
     <tr>
       <th>ID</th>
       <th>Username</th>
+      <th>Autoridade</th>
       <th>Excluir</th>
       <th></th>
       <th></th>
@@ -22,6 +23,7 @@
     <tr th:each="userModel : ${users}">
       <td th:text="${userModel.id}">ID</td>
       <td th:text="${userModel.username}">username</td>
+      <td th:text="${userModel.getAuthorities()[0].roleName}"></td>
       <td><a th:href="@{/users/{id}/delete(id = ${userModel.id})}">Excluir</a></td>
     </tr>
     </tbody>

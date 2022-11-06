@@ -16,6 +16,12 @@
             <label for="password">Senha:</label>
             <input type="password" id="password" th:field="*{password}">
         </div>
+        <div>
+            <label for="role">Autoridade:</label>
+            <select id="role" th:field="*{roles}">
+                <option th:each=" roleModel : ${roles}" th:value="${roleModel}" th:text="${roleModel}"></option>
+            </select>
+        </div>
 
         <input type="submit" value="Submit">
     </form>

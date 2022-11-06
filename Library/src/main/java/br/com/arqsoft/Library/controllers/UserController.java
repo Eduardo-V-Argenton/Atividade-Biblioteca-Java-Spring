@@ -1,8 +1,11 @@
 package br.com.arqsoft.Library.controllers;
 
 import br.com.arqsoft.Library.dto.UserModelDto;
+import br.com.arqsoft.Library.enums.RoleName;
+import br.com.arqsoft.Library.models.RoleModel;
 import br.com.arqsoft.Library.models.UserModel;
 import br.com.arqsoft.Library.repositories.RentRepository;
+import br.com.arqsoft.Library.repositories.RoleRepository;
 import br.com.arqsoft.Library.repositories.UserRepository;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,14 +19,17 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping(value = "/users")
 public class UserController {
     final UserRepository userRepository;
+    final RoleRepository roleRepository;
 
-    public UserController(UserRepository userRepository, RentRepository rentRepository) {
+    public UserController(UserRepository userRepository, RentRepository rentRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -38,19 +44,29 @@ public class UserController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/new")
     public ModelAndView nnew(UserModelDto udto) {
-        return new ModelAndView("/users/new");
+        ModelAndView mv = new ModelAndView("/users/new");
+        mv.addObject("roles", RoleName.values());
+        return mv;
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("")
     public ModelAndView create(@Valid UserModelDto udto, BindingResult bdr) {
         if (bdr.hasErrors()) {
-            return new ModelAndView("/users/new");
+            ModelAndView mv = new ModelAndView("/users/new");
+            mv.addObject("roles", RoleName.values());
+            return mv;
         } else {
             UserModel user = new UserModel();
-            user = udto.toUser(user);
-            this.userRepository.save(user);
-            return new ModelAndView("redirect:/users");
+            Optional<RoleModel> optional = this.roleRepository.findByRoleName(udto.getRoles());
+            if (optional.isPresent()) {
+                RoleModel role = optional.get();
+                user = udto.toUser(user, role);
+                this.userRepository.save(user);
+                return new ModelAndView("redirect:/users");
+            } else {
+                return new ModelAndView("redirect:/errors");
+            }
         }
     }
 

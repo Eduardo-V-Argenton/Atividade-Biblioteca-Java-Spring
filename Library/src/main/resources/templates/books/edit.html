@@ -10,7 +10,7 @@
     <div>
         <div>
             <h1>Book #<span th:text="${bookId}">Id</span></h1>
-            <form th:object="${bookModelDto}" th:action="@{/books/{bookId}(bookId = ${bookId})}" method="POST">
+            <form th:object="${books}" th:action="@{/books/{bookId}(bookId = ${bookId})}" method="POST">
                 <div>
                     <label for="name">Nome:</label>
                     <input type="text" id="name" th:field="*{name}">

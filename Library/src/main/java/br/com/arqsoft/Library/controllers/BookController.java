@@ -72,6 +72,7 @@ public class BookController {
             bdto = new BookModelDto(book.getName(), book.getReleaseYear(), book.getLocation(), book.getAuthor(), book.getGenre(), book.getPublishingHouse());
             ModelAndView mv = new ModelAndView("/books/edit");
             mv.addObject("bookId", id);
+            mv.addObject("books", bdto);
             return mv;
         } else {
             return new ModelAndView("redirect:/errors");
