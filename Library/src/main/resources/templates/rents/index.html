@@ -1,11 +1,19 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Alugueis</title>
 
 </head>
 
 <body>
+<div class="navbar">
+    <a href="/books">Livros</a>
+    <a sec:authorize="hasRole('ROLE_ADMIN')" href="/users">Usuários</a>
+    <a sec:authorize="hasRole('ROLE_ADMIN')" href="/rents/admin">Aluguéis</a>
+    <a sec:authorize="hasRole('ROLE_USER')" href="/rents">Aluguéis</a>
+    <a>Sair</a>
+</div>
 <div>
     <table>
         <thead>
@@ -26,11 +34,12 @@
             <td th:text="${rentModel.id}">ID</td>
             <td th:text="${rentModel.book.name}">Livro</td>
             <td sec:authorize-expr="hasRole('ROLE_ADMIN')" th:text="${rentModel.user.username}">User</td>
-            <td th:text = "${rentModel.rentDate}">Data Aluguel</td>
-            <td th:text = "${rentModel.returnDateLimit}">Data Retorno</td>
-            <td th:if="${rentModel.returnDate == null}" sec:authorize="hasRole('ROLE_USER')"><a th:href="@{/rents/{id}/return(id = ${rentModel.id})}">Devolver</a></td>
+            <td th:text="${rentModel.rentDate}">Data Aluguel</td>
+            <td th:text="${rentModel.returnDateLimit}">Data Retorno</td>
+            <td th:if="${rentModel.returnDate == null}" sec:authorize="hasRole('ROLE_USER')"><a
+                    th:href="@{/rents/{id}/return(id = ${rentModel.id})}">Devolver</a></td>
             <td th:if="${rentModel.returnDate == null}" sec:authorize="hasRole('ROLE_ADMIN')">Não Devolvido</td>
-            <td th:if="${rentModel.returnDate != null}" th:text = "${rentModel.returnDate}">Data Retorno</td>
+            <td th:if="${rentModel.returnDate != null}" th:text="${rentModel.returnDate}">Data Retorno</td>
         </tr>
         </tbody>
     </table>

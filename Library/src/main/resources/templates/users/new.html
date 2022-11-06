@@ -1,11 +1,19 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Novo Usuário</title>
 
 </head>
 
 <body>
+<div class="navbar">
+    <a href="/books">Livros</a>
+    <a sec:authorize="hasRole('ROLE_ADMIN')" href="/users">Usuários</a>
+    <a sec:authorize="hasRole('ROLE_ADMIN')" href="/rents/admin">Aluguéis</a>
+    <a sec:authorize="hasRole('ROLE_USER')" href="/rents">Aluguéis</a>
+    <a>Sair</a>
+</div>
 <div>
     <form th:object="${userModelDto}" action="/users" method="POST">
         <div>

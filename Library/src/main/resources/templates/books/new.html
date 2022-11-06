@@ -1,46 +1,52 @@
-    <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
-    <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <head>       
-        <title>Novo Livro</title>
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Novo Livro</title>
 
-    </head>
+</head>
 
-    <body>
+<body>
+<div class="navbar">
+    <a href="/books">Livros</a>
+    <a sec:authorize="hasRole('ROLE_ADMIN')" href="/users">Usuários</a>
+    <a sec:authorize="hasRole('ROLE_ADMIN')" href="/rents/admin">Aluguéis</a>
+    <a sec:authorize="hasRole('ROLE_USER')" href="/rents">Aluguéis</a>
+    <a>Sair</a>
+</div>
+<div>
     <div>
         <div>
-            <div>
-                <form th:object="${bookModelDto}" action="/books" method="POST">
-                    <div>
-                        <label for="name">Nome:</label>
-                        <input type="text" id="name" th:field="*{name}">
-                    </div>
-                    <div>
-                        <label for="releaseYear">Ano de Lançamento: </label>
-                        <input type="text" id="releaseYear" th:field="*{releaseYear}">
-                    </div>
-                    <div>
-                        <label for="location">Localização:</label>
-                        <input type="text" id="location" th:field="*{location}">
-                    </div>
-                    <div>
-                        <label for="author">Autor: </label>
-                        <input type="text" id="author" th:field="*{author}">
-                    </div>
-                     <div>
-                        <label for="genre">Gênero: </label>
-                        <input type="text" id="genre" th:field="*{genre}">
-                    </div>
-                    <div>
-                        <label for="pubHouse">Editora: </label>
-                        <input type="text" id="pubHouse" th:field="*{publishingHouse}">
-                    </div>
-                    <input type="submit" value="Submit">
-                </form>
-            </div>
+            <form th:object="${bookModelDto}" action="/books" method="POST">
+                <div>
+                    <label for="name">Nome:</label>
+                    <input type="text" id="name" th:field="*{name}">
+                </div>
+                <div>
+                    <label for="releaseYear">Ano de Lançamento: </label>
+                    <input type="text" id="releaseYear" th:field="*{releaseYear}">
+                </div>
+                <div>
+                    <label for="location">Localização:</label>
+                    <input type="text" id="location" th:field="*{location}">
+                </div>
+                <div>
+                    <label for="author">Autor: </label>
+                    <input type="text" id="author" th:field="*{author}">
+                </div>
+                <div>
+                    <label for="genre">Gênero: </label>
+                    <input type="text" id="genre" th:field="*{genre}">
+                </div>
+                <div>
+                    <label for="pubHouse">Editora: </label>
+                    <input type="text" id="pubHouse" th:field="*{publishingHouse}">
+                </div>
+                <input type="submit" value="Submit">
+            </form>
         </div>
     </div>
+</div>
 
 
-
-
-    </html>
+</html>

@@ -75,7 +75,7 @@ public class BookController {
             mv.addObject("books", bdto);
             return mv;
         } else {
-            return new ModelAndView("redirect:/errors");
+            return new ModelAndView("/error");
         }
     }
 
@@ -95,7 +95,7 @@ public class BookController {
                 this.bookRepository.save(book);
                 return new ModelAndView("redirect:/books");
             } else {
-                return new ModelAndView("redirect:/errors");
+                return new ModelAndView("/error");
             }
         }
     }

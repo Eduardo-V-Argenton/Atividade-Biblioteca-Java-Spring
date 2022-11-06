@@ -1,49 +1,59 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head>       
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
     <title>Livros</title>
 
 </head>
 
 <body>
-    <div>
-            <table>
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th >Nome</th>
-                    <th>Localização</th>
-                    <th>Ano de Lançamento</th>
-                    <th>Autor</th>
-                    <th>Gênero</th>
-                    <th>Editora</th>
-                    <th>Alugar</th>
-                    <th sec:authorize="hasRole('ROLE_ADMIN')">Editar</th>
-                    <th sec:authorize="hasRole('ROLE_ADMIN')">Excluir</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="bookModel : ${books}">
-                    <td th:text="${bookModel.id}">ID</td>
-                    <td th:text="${bookModel.name}">Nome do Livro</td>
-                    <td th:text = "${bookModel.location}">Localização</td>
-                    <td th:text = "${bookModel.releaseYear}">Ano de Lançamento</td>
-                    <td th:text = "${bookModel.author}">Autor</td>
-                    <td th:text = "${bookModel.genre}">Gênero</td>
-                    <td th:text = "${bookModel.publishingHouse}">Editora</td>
-                    <td th:if="${bookModel.available}" sec:authorize="hasRole('ROLE_USER')"><a th:href="@{/rents/rent/{bookId}(bookId = ${bookModel.id})}">Alugar</a></td>
-                    <td th:if="${bookModel.available}" sec:authorize="hasRole('ROLE_ADMIN')">Disponível</td>
-                    <td th:if ="${!bookModel.available}"> Não Disponível</td>
-                    <td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/books/{id}/edit(id = ${bookModel.id})}">Editar</a></td>
-                    <td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/books/{id}/delete(id = ${bookModel.id})}">Excluir</a></td>
-                </tr>
-                </tbody>
-            </table>
-    </div>
-    <a sec:authorize="hasRole('ROLE_ADMIN')" href="/books/new">Novo</a><br>
-    <a sec:authorize="hasRole('ROLE_USER')" href="/rents">Alugados por Mim</a>
+<div class="navbar">
+    <a href="/books">Livros</a>
+    <a sec:authorize="hasRole('ROLE_ADMIN')" href="/users">Usuários</a>
+    <a sec:authorize="hasRole('ROLE_ADMIN')" href="/rents/admin">Aluguéis</a>
+    <a sec:authorize="hasRole('ROLE_USER')" href="/rents">Aluguéis</a>
+    <a>Sair</a>
+</div>
+<div>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Localização</th>
+            <th>Ano de Lançamento</th>
+            <th>Autor</th>
+            <th>Gênero</th>
+            <th>Editora</th>
+            <th>Alugar</th>
+            <th sec:authorize="hasRole('ROLE_ADMIN')">Editar</th>
+            <th sec:authorize="hasRole('ROLE_ADMIN')">Excluir</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="bookModel : ${books}">
+            <td th:text="${bookModel.id}">ID</td>
+            <td th:text="${bookModel.name}">Nome do Livro</td>
+            <td th:text="${bookModel.location}">Localização</td>
+            <td th:text="${bookModel.releaseYear}">Ano de Lançamento</td>
+            <td th:text="${bookModel.author}">Autor</td>
+            <td th:text="${bookModel.genre}">Gênero</td>
+            <td th:text="${bookModel.publishingHouse}">Editora</td>
+            <td th:if="${bookModel.available}" sec:authorize="hasRole('ROLE_USER')"><a
+                    th:href="@{/rents/rent/{bookId}(bookId = ${bookModel.id})}">Alugar</a></td>
+            <td th:if="${bookModel.available}" sec:authorize="hasRole('ROLE_ADMIN')">Disponível</td>
+            <td th:if="${!bookModel.available}"> Não Disponível</td>
+            <td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/books/{id}/edit(id = ${bookModel.id})}">Editar</a>
+            </td>
+            <td sec:authorize="hasRole('ROLE_ADMIN')"><a
+                    th:href="@{/books/{id}/delete(id = ${bookModel.id})}">Excluir</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<a sec:authorize="hasRole('ROLE_ADMIN')" href="/books/new">Novo</a><br>
 </body>
 </html>

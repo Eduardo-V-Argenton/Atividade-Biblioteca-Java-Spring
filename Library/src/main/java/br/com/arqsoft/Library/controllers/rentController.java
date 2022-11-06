@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.awt.print.Book;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -48,7 +47,7 @@ public class rentController {
                 return mv;
             }
         }
-        return new ModelAndView("redirect:/errors");
+        return new ModelAndView("/error");
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -80,7 +79,7 @@ public class rentController {
                 }
             }
         }
-        return new ModelAndView("redirect:/errors");
+        return new ModelAndView("error");
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")
@@ -105,6 +104,6 @@ public class rentController {
                 }
             }
         }
-        return new ModelAndView("redirect:/errors");
+        return new ModelAndView("error");
     }
 }

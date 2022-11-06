@@ -65,7 +65,7 @@ public class UserController {
                 this.userRepository.save(user);
                 return new ModelAndView("redirect:/users");
             } else {
-                return new ModelAndView("redirect:/errors");
+                return new ModelAndView("error");
             }
         }
     }
