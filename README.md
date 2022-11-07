@@ -1,14 +1,19 @@
 # Atividade-Biblioteca-Java-Spring
 Atividade avaliativa da matéria de Arquitetura de Software
 
+<h2>Primeiramente Crie o Database e o usuário:</h2>
+
+```sql
 CREATE DATABASE Library;
 
 CREATE USER 'user'@'localhost' IDENTIFIED BY 'password'; 
 GRANT ALL PRIVILEGES ON Library. * TO 'user'@'localhost'; 
 FLUSH PRIVILEGES;
+```
 
---AFTER FIRST EXECUTION:
+<h2>Após primeira execução, execute as seguintes queries:</h2>
 
+```sql
 USE Library;
 
 INSERT INTO Library.user (id, password, username) VALUES (1, '$2a$10$E3CY//muUoAC/1VZfntUoeaNujBfexQoeS8NjIM.TsX/0mUVbuaVu', 'admin');
@@ -24,7 +29,22 @@ INSERT INTO Library.book (id, author, available, genre, location, name, publishi
 INSERT INTO Library.book (id, author, available, genre, location, name, publishing_house, release_year) VALUES (6, 'Aldous Huxley', true, 'Ficção', '13A', 'Admirável Mundo Novo', 'Biblioteca Azul', 2015);
 
 UPDATE Library.hibernate_sequence SET next_val = 7;
-
---Users:
---admin - admin
---user - user
+```
+<h2>Usuários disponíveis:</h2>
+<table>
+  <tr>
+    <th>Username</th>
+    <th>Senha</th>
+    <th>Privilégios</th>
+  </tr>
+  <tr>
+    <td>admin</td>
+    <td>admin</td>
+    <td>Admin</td>
+  </tr>
+  <tr>
+    <td>user</td>
+    <td>user</td>
+    <td>Usuário</td>
+  </tr>
+</table>
