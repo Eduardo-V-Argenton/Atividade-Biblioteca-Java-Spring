@@ -1,33 +1,21 @@
-<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head>
-    <title>Login</title>
-</head>
-
+<html>
+<head></head>
 <body>
-<div class="navbar">
-    <a href="/books">Livros</a>
-    <a sec:authorize="hasRole('ROLE_ADMIN')" href="/users">Usuários</a>
-    <a sec:authorize="hasRole('ROLE_ADMIN')" href="/rents/admin">Aluguéis</a>
-    <a sec:authorize="hasRole('ROLE_USER')" href="/rents">Aluguéis</a>
-    <a>Sair</a>
-</div>
-<div>
-    <form th:action="@{/login}" method="POST">
-        <div>
-            <label for="username">Usuário: </label>
-            <input type="text" id="username" th:field="*{username}">
-        </div>
-        <div>
-            <label for="password">Senha: </label>
-            <input type="password" id="password" th:field="*{password}">
-        </div>
-        <input type="submit" value="Submit">
-    </form>
-</div>
-
+<h1>Login</h1>
+<form name='f' action="login" method='POST'>
+    <table>
+        <tr>
+            <td>Username:</td>
+            <td><input type='text' name='username' value=''></td>
+        </tr>
+        <tr>
+            <td>Senha:</td>
+            <td><input type='password' name='password' /></td>
+        </tr>
+        <tr>
+            <td><input name="submit" type="submit" value="submit" /></td>
+        </tr>
+    </table>
+</form>
 </body>
-
-
 </html>
